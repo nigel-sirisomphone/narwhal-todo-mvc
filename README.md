@@ -1,12 +1,12 @@
-# Narwhal Todo List Demo
-
-This is a WIP, but it should demonstrate basic functionality.
+# Narwhal TodoMVC
 
 You know the drill
 
 - `npm install`
 - `gulp`
 - Navigate to `localhost:8080`
+
+[Narhwal](https://github.com/nigel-sirisomphone/narwhal)
 
 
 ```

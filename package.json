@@ -1,8 +1,8 @@
 {
   "name": "narwhal-todo-demo",
   "version": "1.0.0",
-  "description": "Shitty Narwhal todo list. WIP",
-  "main": "index.js",
+  "description": "Narhwal TodoMVC",
+  "main": "src/main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
