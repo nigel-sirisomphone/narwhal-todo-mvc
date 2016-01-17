@@ -1,7 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import TodoApp from './views/TodoApp'
-
 import { FILTERS } from './constants'
 import { createStore } from 'narwhal'
 import { NarwhalBinder } from 'narwhal/react'
