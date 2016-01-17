@@ -1,27 +1,59 @@
 import React, { Component, PropTypes } from 'react'
-import { addTodo, completeTodo } from '../actions'
-import TodoList from './TodoList'
+import { addTodo, completeTodo, destroyTodo, editTodo, markAllCompleted, clearCompleted, changeFilter } from '../actions'
+import { FILTERS } from '../constants'
 import AddTodo from './AddTodo'
+import TodoList from './TodoList'
+import TodoFooter from './TodoFooter'
+
+function getTodosByFilter(todos, filter) {
+  switch (filter) {
+    case (FILTERS.SHOW_COMPLETED):
+      return todos.filter(todo => todo.completed)
+
+    case (FILTERS.SHOW_ACTIVE):
+      return todos.filter(todo => !todo.completed)
+
+    default:
+      return todos
+  }
+}
 
 export default class TodoApp extends Component {
   render() {
-    const {dispatch} = this.props
+    const {dispatch, filter, allComplete, todos} = this.props
+    const visibleTodos = getTodosByFilter(todos, filter)
+
+    const todoListActions = {
+      markAllCompleted: (isSelected) => dispatch(markAllCompleted(isSelected)),
+      toggleTodo: id => dispatch(completeTodo(id)),
+      editTodo: (id, text) => dispatch(editTodo(id, text)),
+      destroyTodo: id => dispatch(destroyTodo(id))
+    }
 
     return (
       <div>
-        <h1>Todo</h1>
+        <AddTodo onSubmit={text => dispatch(addTodo(text))} />
 
         <TodoList
-          todos={this.props.todos}
-          onTodoClick={id => dispatch(completeTodo(id))}
+          todos={visibleTodos}
+          allComplete={allComplete}
+          {...todoListActions}
         />
 
-        <AddTodo onSubmit={text => dispatch(addTodo(text))}/>
+        <TodoFooter
+          todos={todos}
+          clearCompleted={() => dispatch(clearCompleted())}
+          filter={filter}
+          changeFilter={(nextFilter) => dispatch(changeFilter(nextFilter))}
+        />
       </div>
     )
   }
 }
 
 TodoApp.propTypes = {
-  todos: PropTypes.array
+  todos: PropTypes.array,
+  filter: PropTypes.string,
+  allComplete: PropTypes.bool,
+  dispatch: PropTypes.func
 }

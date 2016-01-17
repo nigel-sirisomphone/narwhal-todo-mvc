@@ -1,4 +1,5 @@
-import { ADD_TODO, COMPLETE_TODO } from './constants'
+import {
+  ADD_TODO, COMPLETE_TODO, DESTROY_TODO, EDIT_TODO,MARK_ALL_COMPLETED, CLEAR_COMPLETED, CHANGE_FILTER } from './constants'
 
 let nextTodoId = 0
 
@@ -8,7 +9,7 @@ export default function (state, action) {
       const {text} = action
       const id = nextTodoId++
 
-      state.todos.push({
+      if (text) state.todos.push({
         text,
         id,
         completed: false
@@ -17,12 +18,49 @@ export default function (state, action) {
       return state
     }
 
-    case(COMPLETE_TODO):
+    case (COMPLETE_TODO):
       state.todos = state.todos.map(todo => {
         if (todo.id === action.id) todo.completed = !todo.completed
 
         return todo
       })
+
+      state.allComplete = state.todos.every(todo => todo.completed)
+
+      return state
+
+    case (DESTROY_TODO):
+      state.todos = state.todos.filter(todo => todo.id !== action.id)
+
+      return state
+
+    case (EDIT_TODO):
+      state.todos = state.todos.map(todo => {
+        if (todo.id === action.id) {
+          todo.text = action.text
+        }
+
+        return todo
+      })
+
+      return state
+
+    case (MARK_ALL_COMPLETED):
+      state.todos = state.todos.map(todo => {
+        todo.completed = action.selected
+
+        return todo
+      })
+
+      return state
+
+    case (CLEAR_COMPLETED):
+      state.todos = state.todos.filter(todo => !todo.completed)
+
+      return state
+
+    case (CHANGE_FILTER):
+      state.filter = action.filter
 
       return state
 

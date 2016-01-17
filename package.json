@@ -9,9 +9,12 @@
   "author": "Nigel Sirisomphone @nigelwtf",
   "license": "MIT",
   "dependencies": {
+    "classnames": "^2.2.3",
+    "narwhal": "https://github.com/nigel-sirisomphone/narwhal.git",
     "react": "^0.14.6",
     "react-dom": "^0.14.6",
-    "narwhal": "https://github.com/nigel-sirisomphone/narwhal.git"
+    "todomvc-app-css": "^2.0.4",
+    "todomvc-common": "^1.0.2"
   },
   "devDependencies": {
     "babel-core": "^6.4.0",

@@ -1,23 +1,46 @@
 import React, { Component, PropTypes } from 'react'
 
 export default class Todo extends Component {
-  handleSubmit() {
-    const value = this._input.value.trim()
+  constructor(props) {
+    super(props)
 
-    this.props.onSubmit(value)
+    this.state = {
+      value: ''
+    }
+  }
+
+  onSubmit(e) {
+    if (e.key === 'Enter') {
+      const value = this.state.value.trim()
+
+      this.props.onSubmit(value)
+      this.setState({
+        value: ''
+      })
+    }
+  }
+
+  onChange(e) {
+    this.setState({
+      value: e.target.value
+    })
   }
 
   render() {  
     return (
-      <div>
+      <header className="header">
+        <h1>todos</h1>
+
         <input
           type="text"
-          placeholder="What needs to get done?"
-          ref={c => this._input = c}
+          className="new-todo"
+          placeholder="What needs to be done?"
+          onKeyPress={e => this.onSubmit(e)}
+          onChange={e => this.onChange(e)}
+          value={this.state.value}
+          autoFocus
         />
-
-        <button onClick={() => this.handleSubmit()}>Add</button>
-      </div>
+      </header>
     )
   }
 }
