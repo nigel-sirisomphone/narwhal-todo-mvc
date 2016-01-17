@@ -1,6 +1,6 @@
 {
   "name": "narwhal-todo-demo",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Narhwal TodoMVC",
   "main": "src/main.js",
   "scripts": {
