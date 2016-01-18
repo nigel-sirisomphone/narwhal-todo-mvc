@@ -20,11 +20,10 @@ export default function (state, action) {
     case (COMPLETE_TODO):
       state.todos = state.todos.map(todo => {
         if (todo.id === action.id) todo.completed = !todo.completed
-
         return todo
       })
 
-      state.allComplete = state.todos.every(todo => todo.completed)
+      state.allCompleted = state.todos.every(todo => todo.completed)
 
       return state
 
@@ -50,6 +49,8 @@ export default function (state, action) {
 
         return todo
       })
+
+      state.allCompleted = action.selected
 
       return state
 

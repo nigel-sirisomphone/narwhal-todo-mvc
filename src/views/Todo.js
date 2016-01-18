@@ -9,6 +9,12 @@ export default class Todo extends Component {
       inputValue: this.props.text,
       editing: false
     }
+
+    this.clickOutsideBound = this.handleDocumentClick.bind(this)
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('click', this.clickOutsideBound)
   }
 
   onInputChange(e) {
@@ -17,13 +23,14 @@ export default class Todo extends Component {
     })
   }
 
+  handleDocumentClick(e) {
+    if (!this._input.contains(e.target)) this.cancelEditing()
+  }
+
   onInputKeyDown(e) {
     switch(e.key) {
       case('Escape'):
-        this.setState({
-          inputValue: this.props.text,
-          editing: false
-        })
+        this.cancelEditing()
 
         break
 
@@ -38,8 +45,19 @@ export default class Todo extends Component {
   }
 
   onLabelDoubleClick() {
+    document.addEventListener('click', this.clickOutsideBound)
+
     this.setState({
       editing: !this.state.editing
+    })
+  }
+
+  cancelEditing() {
+    this.setState({
+      editing: false,
+      inputValue: this.props.text
+    }, () => {
+      document.removeEventListener('click', this.clickOutsideBound)
     })
   }
 
@@ -69,9 +87,10 @@ export default class Todo extends Component {
         <input
           className="edit"
           type="text"
-          value={this.state.inputValue} 
+          value={this.state.inputValue}
           onChange={e => this.onInputChange(e)}
           onKeyDown={e => this.onInputKeyDown(e)}
+          ref={c => this._input = c}
         />
       </li>
     )
