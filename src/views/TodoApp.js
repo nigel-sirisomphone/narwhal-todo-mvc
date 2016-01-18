@@ -20,7 +20,7 @@ function getTodosByFilter(todos, filter) {
 
 export default class TodoApp extends Component {
   render() {
-    const {dispatch, filter, allComplete, todos} = this.props
+    const {dispatch, filter, allCompleted, todos} = this.props
     const visibleTodos = getTodosByFilter(todos, filter)
 
     const todoListActions = {
@@ -36,7 +36,7 @@ export default class TodoApp extends Component {
 
         <TodoList
           todos={visibleTodos}
-          allComplete={allComplete}
+          allCompleted={allCompleted}
           {...todoListActions}
         />
 
@@ -54,6 +54,6 @@ export default class TodoApp extends Component {
 TodoApp.propTypes = {
   todos: PropTypes.array,
   filter: PropTypes.string,
-  allComplete: PropTypes.bool,
+  allCompleted: PropTypes.bool,
   dispatch: PropTypes.func
 }

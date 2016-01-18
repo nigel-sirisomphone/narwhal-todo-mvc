@@ -8,14 +8,14 @@ export default class TodoList extends Component {
           className="toggle-all"
           key="checkbox"
           type="checkbox"
-          checked={this.props.allComplete}
+          checked={this.props.allCompleted}
           onChange={(e) => this.props.markAllCompleted(e.target.checked)}
         />,
         <label key="label" htmlFor="toggle-all">Mark all as complete</label>
     ]
   }
 
-  render() {  
+  render() {
     return (
       <section className="main">
         {this.renderMarkAllCompleted()}
